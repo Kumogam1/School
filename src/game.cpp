@@ -20,7 +20,6 @@ void Game::initialize() {
 	window_->initialize();
 	s_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
 	next_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
-	printf("fait");
 }
 
 bool Game::tick()
@@ -90,7 +89,6 @@ bool Game::tick()
 					addScore(line);
 					countLine_ += line;
 				}
-				printf("score : %i;", score_);
 				s_ = next_;
 				next_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
 				break;
@@ -145,7 +143,6 @@ void Game::check(const Shape& s)
 {
 	if (map_.isCollision(s))
 	{
-		printf("entre\n");
 		map_.unite(s_);
 		int line = map_.lineFull();
 		if (line != 0) {
@@ -156,7 +153,6 @@ void Game::check(const Shape& s)
 		next_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
 		if (map_.isCollision(s_))
 		{
-			printf("perdu");
 			window_->game_over();
 			SDL_Delay(5000);
 			// lance nouvelle game 

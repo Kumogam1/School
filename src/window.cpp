@@ -106,11 +106,11 @@ void Window::update(Map& map, Shape& shape, Shape& next, int score) const
 	}
 	SDL_Surface* texte = TTF_RenderText_Solid(police_, buffer, couleur_);
 	SDL_Texture* scores = SDL_CreateTextureFromSurface(renderer_, texte);
-	SDL_Rect position; //create a rect
-	position.x = 495- ((texte->w)/2);  //controls the rect's x coordinate 
-	position.y = 435; // controls the rect's y coordinte
-	position.w = texte->w;  //controls the rect's x coordinate 
-	position.h = texte->h; // controls the rect's y coordinte
+	SDL_Rect position; 
+	position.x = 495 - ((texte->w)/2); 
+	position.y = 435;
+	position.w = texte->w; 
+	position.h = texte->h;
 	SDL_RenderCopy(renderer_, scores, NULL, &position);
 
 	map.draw(renderer_);
