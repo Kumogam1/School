@@ -61,10 +61,11 @@ Window::~Window()
 
 /******************************************************************************
  * Initialize
+ * Initialisation de la fenêtre
  ******************************************************************************/
 void Window::initialize()
 {
-	window_ = SDL_CreateWindow(title_.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w_, h_, SDL_WINDOW_SHOWN);
+	window_ = SDL_CreateWindow(title_.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w_, h_, SDL_WINDOW_SHOWN );
 	renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_PRESENTVSYNC);
 	SDL_Surface* image = SDL_LoadBMP("../res/tetris.bmp");
 	background_ = SDL_CreateTextureFromSurface(renderer_, image);
@@ -79,6 +80,7 @@ void Window::initialize()
 
 /******************************************************************************
  * Finalize
+ * ferme et supprime tous les objet.
  ******************************************************************************/
 void Window::finalize()
 {
@@ -90,6 +92,7 @@ void Window::finalize()
 
 /******************************************************************************
  * update()
+ * Rafraichi l'affichage de l'écran
  ******************************************************************************/
 void Window::update(Map& map, Shape& shape, Shape& next, int score) const
 {
