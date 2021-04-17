@@ -11,6 +11,7 @@ public:
 	bool isCollision(const Shape& s) const;
 	bool isEdge(const Shape& s, bool isLeft, bool isMove) const;
 	void unite(const Shape& s);
+	int Map::lineFull();
 private:
 	int data[Width][Height];
 	int nb_clear = 0;

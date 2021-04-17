@@ -122,16 +122,21 @@ void Map::unite(const Shape& s)
 			if (s.isBlock(x, y))
 				data[s.x() + x][s.y() + y] = s.getType() + 1;
 				
-	
-	for (int y = Height - 1; y >= 0; y--)
+}
+
+int Map::lineFull() {
+	for (int y = 0; y <= Height - 1; y++)
 	{
 		bool solid = true;
-		for (int x = 0; x < Width; x++)
-			if (!data[x][y])
+
+		for (int x = 0; x < Width; x++) {
+			if (data[x][y]==0)
 			{
 				solid = false;
 				break;
 			}
+		}
+			
 		if (solid)
 		{
 			for (int yy = y - 1; yy >= 0; yy--)
@@ -139,10 +144,8 @@ void Map::unite(const Shape& s)
 					data[x][yy + 1] = data[x][yy];
 			for (int x = 0; x < Width; x++)
 				data[x][0] = false;
-				nb_clear += 1;
-				printf(" \n %i", nb_clear);
-				
+			nb_clear += 1;
 		}
 	}
-
+	return nb_clear;
 }

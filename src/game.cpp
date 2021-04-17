@@ -84,6 +84,7 @@ bool Game::tick()
 				}
 				s_.move(0, -1);
 				map_.unite(s_);
+				countLine_ = map_.lineFull();
 				s_ = next_;
 				next_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
 				break;
@@ -92,7 +93,6 @@ bool Game::tick()
 		case SDL_QUIT:
 			window_->finalize();
 			return false;
-
 		}
 	}
 
@@ -101,8 +101,31 @@ bool Game::tick()
 
 	if (SDL_GetTicks() > moveTime_)
 	{
-		moveTime_ += (diff_[countLine_/10]*1000)/60;
-
+		int vit;
+		if (int(countLine_ / 10) < 10)
+		{
+			vit = int(countLine_ / 10);
+		}
+		else if (int(countLine_ / 10) < 13) {
+			vit = 10;
+		}
+		else if (int(countLine_ / 10) < 16)
+		{
+			vit = 11;
+		}
+		else if (int(countLine_ / 10) < 19)
+		{
+			vit = 12;
+		}
+		else if (int(countLine_ / 10) < 28)
+		{
+			vit = 13;
+		}
+		else
+		{
+			vit = 14;
+		}
+		moveTime_ += (diff_[vit]*1000)/60;
 		Shape cshape = s_;
 		cshape.move(0, 1);
 		check(cshape);
@@ -116,7 +139,9 @@ void Game::check(const Shape& s)
 {
 	if (map_.isCollision(s))
 	{
+		printf("entre\n");
 		map_.unite(s_);
+		countLine_ = map_.lineFull();
 		s_ = next_;
 		next_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
 		if (map_.isCollision(s_))
