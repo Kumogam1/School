@@ -75,6 +75,7 @@ void Window::initialize()
 		fprintf(stderr, "Rendering text failed (%s)\n", TTF_GetError());
 		return;
 	}
+	
 }
 
 /******************************************************************************
@@ -96,6 +97,7 @@ void Window::update(Map& map, Shape& shape, Shape& next, int score) const
 	SDL_RenderClear(renderer_);
 	SDL_RenderCopy(renderer_, background_, NULL, NULL);
 	char buffer[10];
+	
 	if (score< 1000000000)
 	{
 		itoa(score, buffer, 10);
@@ -111,7 +113,7 @@ void Window::update(Map& map, Shape& shape, Shape& next, int score) const
 	position.y = 435;
 	position.w = texte->w; 
 	position.h = texte->h;
-	SDL_RenderCopy(renderer_, scores, NULL, &position);
+	SDL_RenderCopy(renderer_, scores, NULL, &position); 
 
 	map.draw(renderer_);
 	shape.draw(renderer_);
