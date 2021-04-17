@@ -122,7 +122,9 @@ void Game::check(const Shape& s)
 		if (map_.isCollision(s_))
 		{
 			printf("perdu");
-			map_ = Map();
+			window_->game_over();
+			SDL_Delay(5000);
+			// lance nouvelle game 
 		}
 	}
 	else
