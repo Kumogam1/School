@@ -97,13 +97,13 @@ bool Game::tick()
 			}
 			break;
 		case SDL_QUIT:
-			//window_->finalize();
+			window_->finalize();
 			return false;
 		}
 	}
 
 	
-	window_->update(map_, s_, next_);
+	window_->update(map_, s_, next_, score_);
 
 	if (SDL_GetTicks() > moveTime_)
 	{

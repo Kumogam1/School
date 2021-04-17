@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "Shape.h"
 #include <SDL.h>
+#include <SDL_ttf.h>
 // STL
 #include <string>
 
@@ -60,7 +61,7 @@ public:
 
 	void draw( const Sprite& sprite, int x, int y );
 
-	void update(Map& map, Shape& shape, Shape& next) const;
+	void update(Map& map, Shape& shape, Shape& next, int score) const;
 
 	void game_over();
 
@@ -82,6 +83,8 @@ protected:
 	 */
 	SDL_Renderer* renderer_;
 	SDL_Texture* background_;
+	TTF_Font* police_;
+	SDL_Color couleur_;
 
 	/**
 	 * Size 

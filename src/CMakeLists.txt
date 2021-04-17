@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(SDL2 CONFIG REQUIRED)
+find_package(sdl2-ttf CONFIG REQUIRED)
 
 function(ADD_PRG)
 
@@ -20,7 +21,7 @@ function(ADD_PRG)
 		target_include_directories(${ADD_PRG_TARGET} PUBLIC /usr/include/SDL2)
 		target_link_libraries(${ADD_PRG_TARGET} PUBLIC SDL2 SDL2main)
 	else()
-		target_link_libraries(${ADD_PRG_TARGET} PUBLIC SDL2::SDL2 SDL2::SDL2main)
+		target_link_libraries(${ADD_PRG_TARGET} PUBLIC SDL2::SDL2 SDL2::SDL2main SDL2::SDL2_ttf)
 	endif()
 	target_compile_definitions(${ADD_PRG_TARGET} PUBLIC _USE_MATH_DEFINES)
 
