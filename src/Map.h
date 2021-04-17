@@ -14,6 +14,5 @@ public:
 	int Map::lineFull();
 private:
 	int data[Width][Height];
-	int nb_clear = 0;
 };
 

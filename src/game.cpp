@@ -6,6 +6,7 @@ Game::Game() :
 ,	moveTime_(SDL_GetTicks())
 ,	window_(nullptr)
 ,	countLine_(0)
+,	score_(0)
 {
 }
 
@@ -84,14 +85,19 @@ bool Game::tick()
 				}
 				s_.move(0, -1);
 				map_.unite(s_);
-				countLine_ = map_.lineFull();
+				int line = map_.lineFull();
+				if (line != 0) {
+					addScore(line);
+					countLine_ += line;
+				}
+				printf("score : %i;", score_);
 				s_ = next_;
 				next_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
 				break;
 			}
 			break;
 		case SDL_QUIT:
-			window_->finalize();
+			//window_->finalize();
 			return false;
 		}
 	}
@@ -141,7 +147,11 @@ void Game::check(const Shape& s)
 	{
 		printf("entre\n");
 		map_.unite(s_);
-		countLine_ = map_.lineFull();
+		int line = map_.lineFull();
+		if (line != 0) {
+			addScore(line);
+			countLine_ += line;
+		}
 		s_ = next_;
 		next_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
 		if (map_.isCollision(s_))
@@ -155,5 +165,33 @@ void Game::check(const Shape& s)
 	else
 	{
 		s_ = s;
+	}
+}
+
+void Game::addScore(int line) {
+	switch (line)
+	{
+	case 1:
+	{
+		score_ += 40 * ((countLine_ / 10) + 1);
+	}
+	break;
+	case 2:
+	{
+		score_ += 100 * ((countLine_ / 10) + 1);
+	}
+	break;
+	case 3:
+	{
+		score_ += 300 * ((countLine_ / 10) + 1);
+	}
+	break;
+	case 4:
+	{
+		score_ += 1200 * ((countLine_ / 10) + 1);
+	}
+	break;
+	default:
+		break;
 	}
 }

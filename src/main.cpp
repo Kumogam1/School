@@ -12,8 +12,9 @@ int main(int argc, char** argv)
 	Game game;
 	game.initialize();
 	while (game.tick());
-	
+	printf("aaaaaaaaa");
 	GameCore::finalize();
+	printf("bbbbbbbbbbbb");
 	return 0;
 }
 

@@ -125,6 +125,7 @@ void Map::unite(const Shape& s)
 }
 
 int Map::lineFull() {
+	int nbclear=0;
 	for (int y = 0; y <= Height - 1; y++)
 	{
 		bool solid = true;
@@ -144,8 +145,8 @@ int Map::lineFull() {
 					data[x][yy + 1] = data[x][yy];
 			for (int x = 0; x < Width; x++)
 				data[x][0] = false;
-			nb_clear += 1;
+			nbclear ++;
 		}
 	}
-	return nb_clear;
+	return nbclear;
 }

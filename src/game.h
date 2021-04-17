@@ -21,9 +21,11 @@ private:
 	Shape next_;
 	uint32_t moveTime_;
 	void check(const Shape &s);
+	void addScore(int line);
 	std::default_random_engine generator_;
 	std::uniform_int_distribution<int> distribut_;
 	const int diff_[15]{48, 43, 38, 33, 28, 23, 18, 13, 8, 6, 5, 4, 3, 2, 1};
 	int countLine_;
+	int score_;
 };
 
