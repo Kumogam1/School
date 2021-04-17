@@ -1,7 +1,6 @@
 #ifndef _WINDOW_
 #define _WINDOW_
 
-#include "Surface.h"
 #include "Map.h"
 #include "Shape.h"
 #include <SDL.h>
