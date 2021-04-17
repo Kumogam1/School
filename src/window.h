@@ -1,67 +1,10 @@
 #ifndef _WINDOW_
 #define _WINDOW_
 
-/******************************************************************************
- ******************************* INCLUDE SECTION ******************************
- ******************************************************************************/
-
-
-
-//class Window
-//{
-//public:
-//	Window();
-//
-//	void initialize()
-//	{
-//		// creation fenetre
-//		window = SDL_CreateWindow("Arknoid", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 600, SDL_WINDOW_SHOWN);
-//		SDL_Surface* surface_sdl = SDL_GetWindowSurface(window);
-//		Surface* surface = new Surface( surface_sdl );
-//	}
-//
-//private:
-//	SDL_Window* window;
-//	Surface* surface;
-//};
-//
-//class Sprite;
-
-//class Surface
-//{
-//	friend Window;
-//
-//public:
-//
-//	draw( const Sprite& sprite, int x, int y )
-//	{
-//		//SDL_Rect dstBall = { ball.x, ball.y, 0, 0 };
-//		//SDL_BlitSurface( /*source*/plancheSprites, &srcBall,
-//		//				/*destination*/surface, &dstBall );
-//	}
-//	
-//private:
-//	Surface( SDL_Surface* surface )
-//	{
-//		surface = surface;
-//	}
-//
-//	SDL_Surface* surface;
-//};
-
-//class Sprite
-//{
-//public:
-//
-//private:
-//	SDL_Rect* sprite;
-//}
-
-
-
-
-
-
+#include "Surface.h"
+#include "Map.h"
+#include "Shape.h"
+#include <SDL.h>
 // STL
 #include <string>
 
@@ -118,7 +61,7 @@ public:
 
 	void draw( const Sprite& sprite, int x, int y );
 
-	void update() const;
+	void update(Map& map, Shape& shape, Shape& next) const;
 
 	/**************************************************************************
 	 **************************** PROTECTED SECTION ***************************
@@ -136,7 +79,8 @@ protected:
 	/**
 	 * Associated underlying surface
 	 */
-	Surface* surface_;
+	SDL_Renderer* renderer_;
+	SDL_Texture* background_;
 
 	/**
 	 * Size 

@@ -26,4 +26,4 @@ function(ADD_PRG)
 
 endfunction()
 
-ADD_PRG(TARGET TETRIS SOURCES window.h window.inl window.cpp surface.h surface.cpp sprite.h sprite.cpp ball.h ball.inl ball.cpp game.h game.cpp main.cpp GameCore.h GameCore.cpp SceneManager.h SceneManager.cpp GraphicsObject.h GraphicsObject.cpp)
+ADD_PRG(TARGET TETRIS SOURCES main.cpp Game.h Game.cpp GameCore.h GameCore.cpp Map.h Map.cpp Shape.h Shape.cpp Window.h Window.cpp Window.inl)

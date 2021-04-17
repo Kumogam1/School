@@ -1,29 +1,132 @@
-#include "game.h"
+#include "Game.h"
+#include <stdexcept>
 
-/******************************************************************************
- ******************************* INCLUDE SECTION ******************************
- ******************************************************************************/
+Game::Game() :
+	distribut_(0,6)
+,	moveTime_(SDL_GetTicks())
+,	window_(nullptr)
+,	countLine_(0)
+{
+}
 
-// Graphics library
-#include <SDL.h>
+Game::~Game()
+{
+	SDL_Quit();
+}
 
-//STL
-#include <string>
-#include <memory>
-#include <iostream>
-#include <random>
-#include <algorithm>
+void Game::initialize() {
+	window_ = new Window("Tetris", 600, 900);
+	window_->initialize();
+	s_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
+	next_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
+	printf("fait");
+}
 
-#include <fstream>
+bool Game::tick()
+{
+	SDL_Event e;
+	while (SDL_PollEvent(&e))
+	{
+		switch (e.type)
+		{
+		case SDL_KEYDOWN:
+			switch (e.key.keysym.sym)
+			{
+			case SDLK_DOWN: 
+				{
+					Shape s = s_;
+					s.move(0, 1);
+					check(s);
+				}
+				break;
+			
+			case SDLK_RIGHT: 
+				{
+					Shape s = s_;
+					if(!map_.isEdge(s, false, true)){
+						s.move(1, 0);
+					}
+					check(s);
+				}
+				break;
+			
+			case SDLK_LEFT:
+				{
+					Shape s = s_;
+					if(!map_.isEdge(s, true, true)){
+						s.move(-1, 0);
+					}
+					check(s);
+				}
+				break;
 
-#include <sstream>
+			case SDLK_UP:
+				{
+					Shape s = s_;
+					s.rotate();
+					int i = 0;
+					//a modifier problème existant
+					while (map_.isEdge(s, true, false))
+					{
+						s.move(1, 0);
+					}
+					while (map_.isEdge(s, false, false))
+					{
+						s.move(-1, 0);
+					}
+					check(s);
+				}
+				break;
+			case SDLK_SPACE:
+				while (!map_.isCollision(s_))
+				{
+					s_.move(0, 1);
+				}
+				s_.move(0, -1);
+				map_.unite(s_);
+				s_ = next_;
+				next_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
+				break;
+			}
+			break;
+		case SDL_QUIT:
+			window_->finalize();
+			return false;
 
-//System
-#include <cmath>
+		}
+	}
 
-// Project
-#include "window.h"
-#include "surface.h"
-#include "sprite.h"
-#include "SceneManager.h"
-#include "GraphicsObject.h"
+	
+	window_->update(map_, s_, next_);
+
+	if (SDL_GetTicks() > moveTime_)
+	{
+		moveTime_ += (diff_[countLine_/10]*1000)/60;
+
+		Shape cshape = s_;
+		cshape.move(0, 1);
+		check(cshape);
+		
+	}
+
+	return true;
+};
+
+void Game::check(const Shape& s)
+{
+	if (map_.isCollision(s))
+	{
+		map_.unite(s_);
+		s_ = next_;
+		next_ = Shape{ static_cast<Shape::Type>(distribut_(generator_)) };
+		if (map_.isCollision(s_))
+		{
+			printf("perdu");
+			map_ = Map();
+		}
+	}
+	else
+	{
+		s_ = s;
+	}
+}
