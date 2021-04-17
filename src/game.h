@@ -25,5 +25,6 @@ private:
 	std::uniform_int_distribution<int> distribut_;
 	const int diff_[15]{48, 43, 38, 33, 28, 23, 18, 13, 8, 6, 5, 4, 3, 2, 1};
 	int countLine_;
+	int score_;
 };
 

@@ -148,10 +148,34 @@ void Game::check(const Shape& s)
 		{
 			printf("perdu");
 			window_->game_over();
-			SDL_Delay(5000);
-			// lance nouvelle game 
+
+			SDL_Event e;
+			while (SDL_PollEvent(&e))
+			{
+				switch (e.type)
+				{
+				case SDL_KEYDOWN:
+					switch (e.key.keysym.sym)
+					{
+					case SDLK_SPACE:
+					{
+						// lance nouvelle game
+					}
+					break;
+
+					case SDLK_RETURN:
+					{
+						SDL_Quit();
+						printf("return");
+					}
+					break;
+					}
+				}
+
+			}
 		}
 	}
+
 	else
 	{
 		s_ = s;
