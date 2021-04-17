@@ -154,31 +154,8 @@ void Game::check(const Shape& s)
 		if (map_.isCollision(s_))
 		{
 			window_->game_over();
-
-			SDL_Event e;
-			while (SDL_PollEvent(&e))
-			{
-				switch (e.type)
-				{
-				case SDL_KEYDOWN:
-					switch (e.key.keysym.sym)
-					{
-					case SDLK_SPACE:
-					{
-						// lance nouvelle game
-					}
-					break;
-
-					case SDLK_RETURN:
-					{
-						SDL_Quit();
-						printf("return");
-					}
-					break;
-					}
-				}
-
-			}
+			SDL_Delay(5000);
+			//option quitter/nouvelle partie
 		}
 	}
 
