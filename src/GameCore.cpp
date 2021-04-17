@@ -3,6 +3,7 @@
 
 // Graphics library
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 using namespace Core;
 
@@ -20,14 +21,6 @@ bool GameCore::initialize()
 		return false;
 	}
 
-	// Initialize Audio library
-	// ...
-
-	// Network library initialization
-	// ...
-
-	//_isInitialized = true;
-
 	return true;
 }
 
@@ -35,14 +28,6 @@ bool GameCore::finalize()
 {
 	// Finalize graphics library
 	SDL_Quit();
-
-	// Initialize Audio library
-	// ...
-
-	// Network library initialization
-	// ...
-
-	//_isInitialized = false;
 
 	return true;
 }

@@ -12,7 +12,6 @@ int main(int argc, char** argv)
 	Game game;
 	game.initialize();
 	while (game.tick());
-	
 	GameCore::finalize();
 	return 0;
 }

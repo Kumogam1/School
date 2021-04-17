@@ -4,9 +4,6 @@
  ******************************* INCLUDE SECTION ******************************
  ******************************************************************************/
 
-// Graphics library
-#include <SDL.h>
-
 // Project
 
 /******************************************************************************
@@ -32,6 +29,7 @@ Window::Window()
 :	window_( nullptr )
 ,	renderer_( nullptr )
 ,	background_( nullptr )
+,	police_( nullptr )
 ,	w_( 200 )
 ,	h_( 200 )
 ,	title_( "NoName" )
@@ -44,6 +42,9 @@ Window::Window()
 Window::Window( const std::string& name, int w, int h )
 :	window_( nullptr )
 ,	renderer_( nullptr )
+,	background_( nullptr )
+,	police_( nullptr )
+,	couleur_({ 0, 0, 0 })
 ,	w_( w )
 ,	h_( h )
 ,	title_( name )
@@ -68,6 +69,12 @@ void Window::initialize()
 	SDL_Surface* image = SDL_LoadBMP("../res/tetris.bmp");
 	background_ = SDL_CreateTextureFromSurface(renderer_, image);
 	SDL_FreeSurface(image);
+	TTF_Init();
+	police_ = TTF_OpenFont("../res/BAUHS93.ttf", 30);
+	if (police_ == nullptr) {
+		fprintf(stderr, "Rendering text failed (%s)\n", TTF_GetError());
+		return;
+	}
 }
 
 /******************************************************************************
@@ -77,24 +84,35 @@ void Window::finalize()
 {
 	SDL_DestroyRenderer( renderer_ );
 	SDL_DestroyWindow( window_ );
-}
-
-/******************************************************************************
- * draw()
- ******************************************************************************/
-void Window::draw( const Sprite& sprite, int x, int y )
-{
-	
+	TTF_CloseFont(police_);
+	TTF_Quit();
 }
 
 /******************************************************************************
  * update()
  ******************************************************************************/
-void Window::update(Map& map, Shape& shape, Shape& next) const
+void Window::update(Map& map, Shape& shape, Shape& next, int score) const
 {
 	SDL_RenderClear(renderer_);
 	SDL_RenderCopy(renderer_, background_, NULL, NULL);
-	SDL_RenderPresent(renderer_);
+	char buffer[10];
+	if (score< 1000000000)
+	{
+		itoa(score, buffer, 10);
+	}
+	else
+	{
+		itoa(999999999, buffer, 10);
+	}
+	SDL_Surface* texte = TTF_RenderText_Solid(police_, buffer, couleur_);
+	SDL_Texture* scores = SDL_CreateTextureFromSurface(renderer_, texte);
+	SDL_Rect position; 
+	position.x = 495 - ((texte->w)/2); 
+	position.y = 435;
+	position.w = texte->w; 
+	position.h = texte->h;
+	SDL_RenderCopy(renderer_, scores, NULL, &position);
+
 	map.draw(renderer_);
 	shape.draw(renderer_);
 	next.drawNext(renderer_);

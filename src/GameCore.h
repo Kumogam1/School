@@ -17,9 +17,6 @@ protected:
 private:
 
 	GameCore();
-	//GameCore& GameCore(const GameCore& ) = delete;*/
-
-	//static bool _isInitialized;
 
 };
 
