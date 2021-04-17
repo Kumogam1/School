@@ -65,7 +65,7 @@ bool Game::tick()
 					Shape s = s_;
 					s.rotate();
 					int i = 0;
-					//a modifier problème existant
+					//A améliorer
 					while (map_.isEdge(s, true, false))
 					{
 						s.move(1, 0);
