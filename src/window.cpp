@@ -100,3 +100,12 @@ void Window::update(Map& map, Shape& shape, Shape& next) const
 	next.drawNext(renderer_);
 	SDL_RenderPresent(renderer_);
 }
+
+void Window::game_over() 
+{	// image à changer plus tard 
+	SDL_Surface* image = SDL_LoadBMP("../res/game_over.bmp");
+	background_ = SDL_CreateTextureFromSurface(renderer_, image);
+	SDL_FreeSurface(image);
+	SDL_RenderCopy(renderer_, background_, NULL, NULL);
+	SDL_RenderPresent(renderer_);
+}
