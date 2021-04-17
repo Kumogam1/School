@@ -1,4 +1,5 @@
 #include "Map.h"
+#include <iostream>
 
 Map::Map() :
 	data{ 0 }
@@ -115,7 +116,7 @@ bool Map::isEdge(const Shape& s, bool isLeft, bool isMove) const
 
 
 void Map::unite(const Shape& s)
-{
+{	
 	for (int x = 0; x < 4; x++)
 		for (int y = 0; y < 4; y++)
 			if (s.isBlock(x, y))
@@ -138,6 +139,9 @@ void Map::unite(const Shape& s)
 					data[x][yy + 1] = data[x][yy];
 			for (int x = 0; x < Width; x++)
 				data[x][0] = false;
+				nb_clear += 1;
+				printf(" \n %i", nb_clear);
+				
 		}
 	}
 

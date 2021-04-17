@@ -13,5 +13,6 @@ public:
 	void unite(const Shape& s);
 private:
 	int data[Width][Height];
+	int nb_clear = 0;
 };
 
